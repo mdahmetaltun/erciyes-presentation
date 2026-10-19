@@ -1,0 +1,12 @@
+.DS_Store
+Thumbs.db
+*.bak.png
+*crop*.jpg
+test_*.jpg
+test_*.png
+web/assets/img/*.bak.png
+web/assets/img/chest_badge.png
+web/assets/img/heart_close.png
+web/assets/img/heart_zone.png
+web/assets/img/badge_exact.png
+web/assets/img/test_glow_base.png
