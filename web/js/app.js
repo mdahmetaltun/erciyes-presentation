@@ -4,8 +4,7 @@ gsap.registerPlugin(SplitText, MorphSVGPlugin, CustomEase);
 const W = 1600, H = 900;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const PHOTOS = new Set(['mccarthy1', 'mccarthy2', 'speaker']);   // tarihsel / gerçek fotoğraflar; diğer görseller vektör (SVG)
-const IMG = n => `assets/img/${n}.${PHOTOS.has(n) ? 'jpg' : 'svg'}`;
+const IMG = n => `assets/img/${n}.jpg`;
 const GL = 'ABCDEFGHIJKLMNOPRSTUVYZ#%&/<>';
 const rnd = gsap.utils.random;
 
@@ -740,7 +739,7 @@ T.surgery = T.surgery;
 T.analytics = () => `
   <div class="txt"><div class="tag rv">KKDS · TAHMİNE DAYALI ANALİTİK</div><h2 class="t">Hemşirelikte Tahmine Dayalı Analitik</h2>
     <p class="rv">Tahmine dayalı analitik, <em>geçmiş verileri ve istatistiksel algoritmaları</em> kullanarak gelecekteki hasta ihtiyaçlarını ve sonuçlarını öngörür. Bu sayede sağlık profesyonelleri proaktif müdahaleler uygulayarak hasta bakımını iyileştirir ve komplikasyonları azaltır.</p>
-    <img class="rv" src="${IMG('analytics')}" style="width:100%;height:210px;object-fit:cover;border-radius:26px" alt=""></div>
+    <img class="rv" src="${IMG('benchmark')}" style="width:100%;height:210px;object-fit:cover;border-radius:26px" alt=""></div>
   <div class="panel rv" data-noclick>
     <div class="tag">CANLI SİMÜLASYON · ÖRNEK SENARYO</div><h3>Düşme Riski Tahmini</h3>
     <svg class="gauge" viewBox="0 0 400 240"><path d="M40 200 A160 160 0 0 1 360 200" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="30" stroke-linecap="round"/><path id="garc" d="M40 200 A160 160 0 0 1 360 200" fill="none" stroke="url(#gg)" stroke-width="30" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/><defs><linearGradient id="gg"><stop offset="0" stop-color="#19c48b"/><stop offset=".5" stop-color="#f4c542"/><stop offset="1" stop-color="#ff4d5e"/></linearGradient></defs>

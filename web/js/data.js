@@ -40,7 +40,7 @@ const DECK = [
     kids: [
       { id: 'k-veri', title: 'Büyük Miktarda Veriyi İşler', img: 'warehouse', sm: true,
         body: 'Yapay Zeka, öğrenmek ve gelişmek için <em>büyük miktarda veri setine</em> dayanır. Eğitim verileri çoğunlukla etiketlenmiştir; yani örüntüleri ve ilişkileri anlamasına yardımcı olmak için kategorize edilmiş ve düzenlenmiştir. Modern yöntemler etiketlenmemiş veriden de örüntü çıkarabilir.' },
-      { id: 'k-desen', title: 'Verilerdeki Korelasyonları ve Desenleri Analiz Eder', img: 'xray', sm: true,
+      { id: 'k-desen', title: 'Verilerdeki Korelasyonları ve Desenleri Analiz Eder', img: 'analytics', sm: true,
         body: 'Yutulan verileri analiz ederek Yapay Zeka sistemleri, insanlar için hemen belirgin olmayabilecek <em>korelasyonları ve desenleri tespit eder.</em> Bu analitik süreç, verilerden öğrenmesine ve yanıtlarını buna göre uyarlamasına olanak tanır.' },
       { id: 'k-tahmin', title: 'Gelecekteki Durumlara İlişkin Tahminler Yapar', img: 'server', sm: true,
         body: 'Analiz sırasında tespit edilen desenleri kullanarak Yapay Zeka, gelecekteki olaylar veya durumlar hakkında <em>tahminlerde bulunabilir.</em> Sonuçlar gerçekle karşılaştırıldıkça model kendini günceller; bu tahmin yeteneği sağlık gibi alanlarda hayati önem taşır.' }
@@ -50,7 +50,7 @@ const DECK = [
   { type: 'role', id: 'role', sec: 2 },
   { type: 'hub', id: 'h-kapsam', sec: 2, title: 'Sağlık Hizmetlerinde Yapay Zekanın Kapsamı', sub: 'Tanı, tedavi ve yönetim: daha iyi sonuç, daha yüksek verimlilik.', bg: 'hosp_b',
     kids: [
-      { id: 'k-tani', title: 'Tanısal Araçlar', img: 'diagnosis',
+      { id: 'k-tani', title: 'Tanısal Araçlar', img: 'xray',
         body: 'Yapay Zeka teknolojileri, tıbbi görüntüleri, laboratuvar sonuçlarını ve hasta verilerini analiz ederek hastalıkların teşhisine yardımcı olur ve bu da <em>daha hızlı ve doğru teşhisler</em> sağlar.' },
       { id: 'k-tedaviplan', title: 'Tedavi Planlama', img: 'lab',
         body: 'Yapay Zeka, hasta verileri ve tahmine dayalı analizlere dayanarak <em>kişiselleştirilmiş tedavi planları</em> oluşturulmasında sağlık hizmeti sağlayıcılarına yardımcı olur ve terapötik sonuçları optimize eder.' },
@@ -60,13 +60,13 @@ const DECK = [
   { type: 'surgery', id: 'surg', sec: 2 },
 
   { type: 'chap', id: 'c3', sec: 3, title: 'Hemşirelikte Yapay Zeka Uygulamaları', sub: 'Yatak başından yönetim masasına: hemşirenin gününde YZ nerede?', small: true },
-  { type: 'hub', id: 'h-hems', sec: 3, title: 'Hemşirenin Gününde Beş YZ Alanı', sub: 'Önce harita, sonra ayrıntı: her alan bir sonraki bölümde derinleşir.', bg: 'workflow',
+  { type: 'hub', id: 'h-hems', sec: 3, title: 'Hemşirenin Gününde Beş YZ Alanı', sub: 'Önce harita, sonra ayrıntı: her alan bir sonraki bölümde derinleşir.', bg: 'robotcorr',
     kids: [
       { id: 'k-akis', title: 'İş Akışı Optimizasyonu', img: 'workflow',
         body: 'Dokümantasyon, planlama ve envanter gibi rutin işleri otomatikleştirir; <em>zaman hasta başına döner.</em>' },
       { id: 'k-ilac', title: 'Tedavi Yönetimi', img: 'pharmacy', viz: 'alert',
         body: 'Otomatik ilaç yönetim sistemleri dağıtımın <em>doğruluğunu</em> artırır, insan hatası riskini azaltır ve hasta güvenliğini güçlendirir.' },
-      { id: 'k-tahminanaliz', title: 'Tahmine Dayalı Analizler', img: 'risk',
+      { id: 'k-tahminanaliz', title: 'Tahmine Dayalı Analizler', img: 'learn',
         body: 'Hasta ihtiyaçlarını ve sonuçlarını <em>önceden öngörerek</em> proaktif müdahaleye olanak tanır.' },
       { id: 'k-uzak', title: 'Uzaktan Hasta Monitörizasyonu', img: 'wearable', viz: 'ecg',
         body: 'Giyilebilir cihazlar ve <em>sürekli glikoz izleme</em> gibi sistemler sağlık metriklerini gerçek zamanlı izler; zamanında müdahaleyi kolaylaştırır ve hastane yeniden yatışlarını azaltır.' },
@@ -84,7 +84,7 @@ const DECK = [
     ] },
   { type: 'analytics', id: 'an', sec: 4 },
   { type: 'chat', id: 'chat', sec: 4 },
-  { type: 'hub', id: 'h-akis', sec: 4, title: 'Hemşirelikte Yapay Zeka Destekli İş Akışı Optimizasyonu', sub: 'Evrak, nöbet, stok: üç zaman hırsızı.', bg: 'workflow',
+  { type: 'hub', id: 'h-akis', sec: 4, title: 'Hemşirelikte Yapay Zeka Destekli İş Akışı Optimizasyonu', sub: 'Evrak, nöbet, stok: üç zaman hırsızı.', bg: 'clinic',
     kids: [
       { id: 'k-dok', title: 'Dokümantasyonda Verimliliği Artırır', long: true, big: '01',
         body: 'Yapay zekâ, <em>rutin görevlerin otomasyonu</em> sayesinde hemşirelik iş akışlarını daha verimli kılar. Dokümantasyon süreçlerini optimize ederek <em>evrak işlerine harcanan zamanı azaltır</em>; hemşireler hasta bakımına daha fazla odaklanır. Randevu planlama ve envanter uyarıları, sonraki iki başlıkta ayrıntılanır.' },

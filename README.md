@@ -22,7 +22,13 @@ Tarayıcınızdan `http://localhost:8000/#1` adresini açarak sunuma erişebilir
 
 ## 📁 Proje Yapısı
 
-- `web/`: HTML, CSS, animasyon motoru (GSAP, MorphSVG, SplitText), ses sentezleyicisi (Web Audio API) ve vektörel (SVG) illüstrasyonlar.
-- `tools/gen_illustrations.py`: Tüm SVG illüstrasyonları ortak palette üreten betik (`python3 tools/gen_illustrations.py`). Renkleri/ifadeleri değiştirip yeniden çalıştırabilirsiniz.
+- `web/`: HTML, CSS, animasyon motoru (GSAP, MorphSVG, SplitText), ses sentezleyicisi (Web Audio API) ve yüksek çözünürlüklü (Real-ESRGAN ile 4x yeniden ölçeklenmiş) tıbbi görseller.
 - `Hemşirelikte Yapay Zeka Uygulamaları.pdf`: Sunumun PDF kopyası.
 - `Hemşirelikte Yapay Zeka Uygulamaları.pptx`: Sunumun orijinal PowerPoint slayt seti.
+
+## Sürümler
+
+- `yedek/orijinal-surum` dalı: ilk teslim edilen hali (değişmemiş).
+- `yedek/deneme-1-svg` dalı: vektörel illüstrasyon denemesi.
+
+Geri dönmek için: `git checkout yedek/orijinal-surum`
