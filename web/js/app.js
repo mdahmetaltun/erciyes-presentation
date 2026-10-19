@@ -1356,117 +1356,105 @@ const AudioFX = (() => {
     } catch(e) {}
   }
 
-  // Slayt içi adım/parça (build) değişimi (hassas mikro cam tıkırtısı)
-  function build() {
-    if (!enabled) return;
-    resume();
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    try {
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(960, t);
-      osc.frequency.exponentialRampToValueAtTime(1420, t + 0.032);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.22, t + 0.005);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.038);
-      osc.connect(g); g.connect(masterGain);
-      osc.start(t); osc.stop(t + 0.04);
-    } catch(e) {}
-  }
-
-  // Bölüm geçişi (akustik harmonik akor)
-  function section() {
-    if (!enabled) return;
-    resume();
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    [523.25, 659.25, 783.99].forEach((freq, idx) => {
-      try {
-        const osc = ctx.createOscillator();
-        const g = ctx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(freq, t + idx * 0.035);
-        g.gain.setValueAtTime(0.0001, t + idx * 0.035);
-        g.gain.exponentialRampToValueAtTime(0.16, t + idx * 0.035 + 0.02);
-        g.gain.exponentialRampToValueAtTime(0.0001, t + idx * 0.035 + 0.32);
-        osc.connect(g); g.connect(masterGain);
-        osc.start(t + idx * 0.035); osc.stop(t + idx * 0.035 + 0.35);
-      } catch(e) {}
-    });
-  }
-
-  // Genel bakış açılma / kapanma
-  function overview(open) {
-    if (!enabled) return;
-    resume();
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    try {
-      const osc = ctx.createOscillator();
-      const g = ctx.createGain();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(open ? 260 : 520, t);
-      osc.frequency.exponentialRampToValueAtTime(open ? 520 : 260, t + 0.2);
-      g.gain.setValueAtTime(0.0001, t);
-      g.gain.exponentialRampToValueAtTime(0.2, t + 0.035);
-      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.2);
-      osc.connect(g); g.connect(masterGain);
-      osc.start(t); osc.stop(t + 0.22);
-    } catch(e) {}
-  }
-
-
-  /* --- Animasyon sesleri --------------------------------------------- */
-  const tone = (t, f0, f1, dur, vol, type = 'sine') => {
-    const o = ctx.createOscillator(), g = ctx.createGain();
-    o.type = type; o.frequency.setValueAtTime(f0, t);
-    if (f1 !== f0) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + Math.min(0.03, dur / 3)); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t + dur + 0.02);
-  };
-  const air = (t, f0, f1, dur, vol, q = 1.2, type = 'bandpass') => {
+  /* --- Ses tasarımı: koyu, düşük perdeli, sinematik ------------------- */
+  const noiseBuf = (dur, shape) => {
     const n = Math.floor(ctx.sampleRate * dur), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
-    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * Math.sin(Math.PI * i / n);
-    const src = ctx.createBufferSource(); src.buffer = buf;
+    for (let i = 0; i < n; i++) d[i] = (Math.random() * 2 - 1) * shape(i / n);
+    return buf;
+  };
+  const air = (t, f0, f1, dur, vol, q = 1, type = 'bandpass', shape = x => Math.sin(Math.PI * x)) => {
+    const src = ctx.createBufferSource(); src.buffer = noiseBuf(dur, shape);
     const fl = ctx.createBiquadFilter(); fl.type = type; fl.Q.value = q;
     fl.frequency.setValueAtTime(f0, t); fl.frequency.exponentialRampToValueAtTime(f1, t + dur);
     const g = ctx.createGain(); g.gain.value = vol;
     src.connect(fl); fl.connect(g); g.connect(masterGain); src.start(t);
   };
-  // Başlık / yazı belirişi: hava süpürmesi + parlak çan
-  function reveal(soft) {
-    const t = ctx.currentTime, v = soft ? .6 : 1;
-    air(t, 1200, 5200, .55, .22 * v, 1.4);
-    tone(t + .12, 1318.5, 1318.5, .5, .1 * v, 'triangle'); tone(t + .2, 1975.5, 1975.5, .45, .06 * v, 'sine');
+  // Düşen sinüs: alt vuruş (sub)
+  const thump = (t, f0, f1, dur, vol) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(f0, t); o.frequency.exponentialRampToValueAtTime(f1, t + dur * .7);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .008); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(g); g.connect(masterGain); o.start(t); o.stop(t + dur + .02);
+  };
+  // Kısa, mat "tok": filtrelenmiş gürültü + alçak vuruş
+  const tok = (t, f = 420, vol = .22) => {
+    air(t, f, f * .5, .07, vol, 2.2, 'bandpass', x => Math.exp(-x * 7));
+    thump(t, 150, 60, .13, vol * .9);
+  };
+  // Alçak, koyu akor: testere dalgası + kapanan alçak geçiren filtre
+  const pad = (t, freqs, dur, vol, c0 = 1400, c1 = 240) => {
+    const fl = ctx.createBiquadFilter(), g = ctx.createGain();
+    fl.type = 'lowpass'; fl.Q.value = 3; fl.frequency.setValueAtTime(c0, t); fl.frequency.exponentialRampToValueAtTime(c1, t + dur);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + .04); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    fl.connect(g); g.connect(masterGain);
+    freqs.forEach((f, i) => [-6, 6].forEach(dt => { const o = ctx.createOscillator(); o.type = 'sawtooth'; o.frequency.value = f; o.detune.value = dt + i; o.connect(fl); o.start(t); o.stop(t + dur + .05); }));
+  };
+
+  // Slayt içi adım (build): kısa mat vuruş
+  function build() {
+    if (!enabled) return;
+    resume(); if (!ctx) return;
+    try { tok(ctx.currentTime, 520, .26); } catch (e) {}
   }
-  // Hub'dan karta yakınlaştırma: derin süpürme + alt ton
+
+  // Bölüm geçişi: alçak güç akoru + derin vuruş
+  function section() {
+    if (!enabled) return;
+    resume(); if (!ctx) return;
+    try {
+      const t = ctx.currentTime;
+      thump(t, 90, 38, .9, .42); air(t, 300, 90, .6, .25, .8, 'lowpass', x => Math.exp(-x * 4));
+      pad(t + .02, [110, 164.81, 220], 1.4, .06, 1200, 200);
+    } catch (e) {}
+  }
+
+  // Genel bakış açılma / kapanma: yükselen / alçalan nefes
+  function overview(open) {
+    if (!enabled) return;
+    resume(); if (!ctx) return;
+    try {
+      const t = ctx.currentTime;
+      air(t, open ? 200 : 1600, open ? 1600 : 200, .5, .3, 1.2);
+      thump(open ? t + .38 : t, open ? 120 : 100, 50, .35, .32);
+    } catch (e) {}
+  }
+
+  // Başlık / yazı belirişi: yükselen nefes ve sonunda yumuşak vuruş
+  function reveal(soft) {
+    const t = ctx.currentTime, v = soft ? .65 : 1;
+    air(t, 160, 2400, .55, .26 * v, 1.1, 'bandpass', x => x * x * Math.sin(Math.PI * Math.min(1, x * 1.0)));
+    thump(t + .5, 110, 46, .5, .3 * v);
+    if (!soft) pad(t + .5, [110, 164.81], 1.1, .05, 1000, 200);
+  }
+  // Hub'dan karta yakınlaşma: alçaktan gelen süpürme + derin boom
   function zoom() {
     const t = ctx.currentTime;
-    air(t, 180, 1800, .7, .3, .9); tone(t, 70, 130, .5, .26); tone(t + .35, 880, 1320, .3, .08, 'triangle');
+    air(t, 120, 1400, .6, .3, .9, 'bandpass', x => x * x);
+    thump(t + .5, 78, 34, .8, .45); air(t + .5, 260, 80, .5, .18, .8, 'lowpass', x => Math.exp(-x * 5));
   }
-  // Bölüm kapağı / morph: yükselen cam glissando + akor
+  // Bölüm kapağı / şekil dönüşümü: koyu yükselen glissando ve güç akoru
   function morph() {
     const t = ctx.currentTime;
-    tone(t, 220, 880, .9, .12, 'triangle'); tone(t + .05, 330, 1320, .9, .07, 'sine');
-    [392, 493.88, 587.33].forEach((f, i) => tone(t + .75 + i * .06, f, f, .9, .08, 'triangle'));
+    air(t, 140, 1800, .8, .22, 1.2, 'bandpass', x => x * x);
+    pad(t, [55, 82.41], 1.2, .05, 300, 1500);          // açılan filtre
+    thump(t + .85, 100, 36, 1.0, .5);
+    pad(t + .85, [110, 164.81, 220, 329.63], 2.0, .06, 1800, 220);
   }
-  // Sıralı öğeler (sütun, kart, zaman çizelgesi): art arda yumuşak tıklar
+  // Sıralı öğeler: alçak, mat darbeler (perde yükselmez, ıslık gibi olmaz)
   function ticks(n, every, start = 0) {
     const t = ctx.currentTime + start;
-    for (let i = 0; i < n; i++) tone(t + i * every, 880 * Math.pow(1.122, i), 880 * Math.pow(1.122, i) * 1.4, .09, .14, 'sine');
+    for (let i = 0; i < n; i++) tok(t + i * every, 360 + (i % 2) * 90, .18);
   }
   // Slayt tipine göre giriş sesi
   function enter(type) {
     if (!enabled) return; resume(); if (!ctx) return;
     try {
-      if (type === 'hero' || type === 'poster' || type === 'end') { reveal(); ticks(3, .18, .5); }
+      if (type === 'hero' || type === 'poster' || type === 'end') { reveal(); ticks(3, .2, .6); }
       else if (type === 'chap') morph();
-      else if (type === 'hub') { reveal(true); ticks(3, .12, .35); }
+      else if (type === 'hub') { reveal(true); ticks(3, .13, .4); }
       else if (type === 'card') zoom();
-      else if (type === 'ethics' || type === 'steps') { reveal(true); ticks(4, .14, .8); }
-      else if (type === 'mccarthy') { reveal(true); ticks(7, .15, 1.05); }
+      else if (type === 'ethics' || type === 'steps') { reveal(true); ticks(4, .16, .85); }
+      else if (type === 'mccarthy') { reveal(true); ticks(7, .17, 1.1); }
       else reveal(true);
     } catch (e) {}
   }
