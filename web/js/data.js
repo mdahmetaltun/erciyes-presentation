@@ -26,14 +26,12 @@ const DECK = [
   { type: 'poster', id: 'poster', sec: 0 },
 
   { type: 'chap', id: 'c1', sec: 1, title: 'Yapay Zekayı Anlamak', sub: 'Tanım, teknikler ve işleyiş: kavramları sağlam bir zemine oturtalım.' },
-  { type: 'hub', id: 'h-nedir', sec: 1, title: 'Yapay Zeka Nedir?', sub: 'Üç temel fikir: tanım, teknikler, kendini geliştirme.', bg: 'neural',
+  { type: 'hub', id: 'h-nedir', sec: 1, title: 'Yapay Zeka Nedir?', sub: 'İki temel fikir: ne olduğu ve nasıl öğrendiği.', bg: 'neural',
     kids: [
       { id: 'k-tanim', title: 'Yapay Zekanın Tanımı', img: 'brain',
         body: 'Yapay Zeka (AI), insan zekası süreçlerinin makineler, özellikle bilgisayar sistemleri tarafından simülasyonu olarak tanımlanır. Bu, insan yeteneklerine rakip olabilen veya <b>onları aşabilen</b> <em>öğrenme, akıl yürütme, algılama ve karar verme</em> gibi yetenekleri içerir.' },
-      { id: 'k-teknik', title: 'Yapay Zekada Kullanılan Teknikler', img: 'neural', sm: true,
-        body: 'Yapay Zeka, verileri işlemek ve tahminlerde bulunmak için <em>makine öğrenimi, derin öğrenme, doğal dil işleme ve sinir ağları</em> gibi çeşitli teknikler kullanabilir. Bu teknikler, bilgisayarların normalde insan zekası gerektiren görevleri yerine getirmesini sağlar.' },
-      { id: 'k-kendi', title: 'Kendi Kendini Geliştirme', img: 'selfimprove',
-        body: 'Yapay Zeka sistemleri, veri girişlerinden öğrenerek zamanla gelişmek üzere tasarlanmıştır. Bu <em>kendini geliştirme kapasitesi</em>, yeni zorluklara uyum sağlamasına ve işlevselliğini artırmasına olanak tanır; böylece çeşitli uygulamalarda daha iyi performans gösterir.' }
+      { id: 'k-ogrenen', title: 'Öğrenen Sistemler: Teknikler ve Kendini Geliştirme', img: 'neural', sm: true,
+        body: 'Yapay Zeka; verileri işlemek ve tahmin yapmak için <em>makine öğrenimi, derin öğrenme, doğal dil işleme ve sinir ağları</em> gibi tekniklerden yararlanır. Bu sistemler veri girişlerinden öğrenerek zamanla gelişecek biçimde tasarlanmıştır: <em>kendini geliştirme kapasitesi</em> yeni zorluklara uyum sağlamasına olanak tanır.' }
     ] },
   { type: 'mccarthy', id: 'mc', sec: 1 },
   { type: 'map', id: 'map', sec: 1 },
@@ -45,73 +43,62 @@ const DECK = [
       { id: 'k-desen', title: 'Verilerdeki Korelasyonları ve Desenleri Analiz Eder', img: 'xray', sm: true,
         body: 'Yutulan verileri analiz ederek Yapay Zeka sistemleri, insanlar için hemen belirgin olmayabilecek <em>korelasyonları ve desenleri tespit eder.</em> Bu analitik süreç, verilerden öğrenmesine ve yanıtlarını buna göre uyarlamasına olanak tanır.' },
       { id: 'k-tahmin', title: 'Gelecekteki Durumlara İlişkin Tahminler Yapar', img: 'server', sm: true,
-        body: 'Analiz sırasında tespit edilen desenleri kullanarak Yapay Zeka, gelecekteki olaylar veya durumlar hakkında <em>tahminlerde bulunabilir.</em> Bu tahmin yeteneği, sağlık ve finans gibi çeşitli alanlardaki uygulamalar için hayati öneme sahiptir.' }
+        body: 'Analiz sırasında tespit edilen desenleri kullanarak Yapay Zeka, gelecekteki olaylar veya durumlar hakkında <em>tahminlerde bulunabilir.</em> Sonuçlar gerçekle karşılaştırıldıkça model kendini günceller; bu tahmin yeteneği sağlık gibi alanlarda hayati önem taşır.' }
     ] },
 
-  { type: 'chap', id: 'c2', sec: 2, title: 'Sağlık Hizmetlerinde Yapay Zekanın Temel Rolü', sub: 'Tanıdan tedaviye, izlemeden yönetime: dört ana kapı.', small: true },
+  { type: 'chap', id: 'c2', sec: 2, title: 'Sağlık Hizmetlerinde Yapay Zekanın Temel Rolü', sub: 'Tanıdan tedaviye, yönetimden cerrahiye: ana kapılar.', small: true },
   { type: 'role', id: 'role', sec: 2 },
-  { type: 'hub', id: 'h-kapsam', sec: 2, title: 'Sağlık Hizmetlerinde Yapay Zekanın Kapsamı', sub: 'Daha iyi hasta sonuçları ve operasyonel verimlilik.', bg: 'hosp_b',
+  { type: 'hub', id: 'h-kapsam', sec: 2, title: 'Sağlık Hizmetlerinde Yapay Zekanın Kapsamı', sub: 'Tanı, tedavi ve yönetim: daha iyi sonuç, daha yüksek verimlilik.', bg: 'hosp_b',
     kids: [
-      { id: 'k-tani', title: 'Tanısal Araçlar', img: 'xray',
+      { id: 'k-tani', title: 'Tanısal Araçlar', img: 'diagnosis',
         body: 'Yapay Zeka teknolojileri, tıbbi görüntüleri, laboratuvar sonuçlarını ve hasta verilerini analiz ederek hastalıkların teşhisine yardımcı olur ve bu da <em>daha hızlı ve doğru teşhisler</em> sağlar.' },
       { id: 'k-tedaviplan', title: 'Tedavi Planlama', img: 'lab',
         body: 'Yapay Zeka, hasta verileri ve tahmine dayalı analizlere dayanarak <em>kişiselleştirilmiş tedavi planları</em> oluşturulmasında sağlık hizmeti sağlayıcılarına yardımcı olur ve terapötik sonuçları optimize eder.' },
-      { id: 'k-monit', title: 'Hasta Monitörizasyonu', img: 'wearable', viz: 'ecg',
-        body: 'Yapay Zeka destekli araçlar, hasta sağlığı metriklerinin <em>gerçek zamanlı izlenmesine</em> olanak tanıyarak zamanında müdahaleleri kolaylaştırır ve hastane yeniden yatışlarını azaltır.' },
       { id: 'k-yonet', title: 'Yönetsel Görevler', img: 'clinic',
         body: 'Yapay Zeka, planlama, faturalandırma ve kaynak tahsisi gibi idari süreçleri optimize ederek sağlık kuruluşlarında <em>operasyonel verimliliğin</em> artmasını sağlar.' }
     ] },
   { type: 'surgery', id: 'surg', sec: 2 },
 
   { type: 'chap', id: 'c3', sec: 3, title: 'Hemşirelikte Yapay Zeka Uygulamaları', sub: 'Yatak başından yönetim masasına: hemşirenin gününde YZ nerede?', small: true },
-  { type: 'hub', id: 'h-hems', sec: 3, title: 'Hemşirelikte Yapay Zeka Uygulamaları', sub: 'Beş uygulama alanı.', bg: 'robotcorr',
+  { type: 'hub', id: 'h-hems', sec: 3, title: 'Hemşirenin Gününde Beş YZ Alanı', sub: 'Önce harita, sonra ayrıntı: her alan bir sonraki bölümde derinleşir.', bg: 'workflow',
     kids: [
       { id: 'k-akis', title: 'İş Akışı Optimizasyonu', img: 'workflow',
-        body: 'Yapay Zeka, <em>dokümantasyon, planlama ve envanter yönetimi</em> gibi rutin görevleri otomatikleştirerek hemşirelerin <em>hasta bakımına odaklanmasını</em> sağlar ve iş akışı optimizasyonunu geliştirir.' },
+        body: 'Dokümantasyon, planlama ve envanter gibi rutin işleri otomatikleştirir; <em>zaman hasta başına döner.</em>' },
       { id: 'k-ilac', title: 'Tedavi Yönetimi', img: 'pharmacy', viz: 'alert',
-        body: 'Otomatik ilaç yönetim sistemleri, ilaç dağıtım süreçlerinin <em>doğruluğunu ve verimliliğini</em> artırarak insan hatası riskini azaltır ve hasta güvenliğini güçlendirir.' },
-      { id: 'k-tahminanaliz', title: 'Tahmine Dayalı Analizler', img: 'lab',
-        body: 'Hemşirelikte tahmine dayalı analitik, <em>hasta ihtiyaçlarının ve sonuçlarının öngörülmesini</em> sağlayarak proaktif müdahalelere olanak tanır ve hasta bakım kalitesini artırır.' },
+        body: 'Otomatik ilaç yönetim sistemleri dağıtımın <em>doğruluğunu</em> artırır, insan hatası riskini azaltır ve hasta güvenliğini güçlendirir.' },
+      { id: 'k-tahminanaliz', title: 'Tahmine Dayalı Analizler', img: 'risk',
+        body: 'Hasta ihtiyaçlarını ve sonuçlarını <em>önceden öngörerek</em> proaktif müdahaleye olanak tanır.' },
       { id: 'k-uzak', title: 'Uzaktan Hasta Monitörizasyonu', img: 'wearable', viz: 'ecg',
-        body: 'Uzaktan hasta izleme teknolojileri, hasta sağlık metriklerinin <em>sürekli takibine</em> olanak sağlayarak zamanında tıbbi müdahaleleri kolaylaştırır ve hastane yeniden yatış oranlarını düşürür.' },
+        body: 'Giyilebilir cihazlar ve <em>sürekli glikoz izleme</em> gibi sistemler sağlık metriklerini gerçek zamanlı izler; zamanında müdahaleyi kolaylaştırır ve hastane yeniden yatışlarını azaltır.' },
       { id: 'k-asist', title: 'Hasta Bakım Asistanlığı', img: 'nursepatient',
-        body: 'Yapay Zeka destekli hasta bakım asistanlığı araçları (<em>sohbet robotları ve sanal asistanlar dahil</em>), hasta sorularına anında yanıt vererek hemşirelik çabalarını destekler ve hasta katılımını artırır.' }
+        body: 'Sohbet robotları ve sanal asistanlar sorulara anında yanıt vererek <em>hasta katılımını</em> artırır.' }
     ] },
 
   { type: 'chap', id: 'c4', sec: 4, title: 'Yapay Zeka ile Hemşirelik Uygulamalarının Dönüşümü', sub: 'Rutin görevler otomasyona, zaman hasta başına döner.', small: true },
   { type: 'hub', id: 'h-kkds', sec: 4, title: 'Hemşirelikte Klinik Karar Destek Sistemlerinin Rolü', sub: 'KKDS: bilgiyi karara, kararı güvenli bakıma çevirir.', bg: 'ckds1',
     kids: [
       { id: 'k-karar', title: 'Klinik Karar Verme Sürecini Geliştirir', img: 'ckds1',
-        body: 'Klinik karar destek sistemleri (KKDS), yapay zekâ kullanarak hasta verilerini analiz eder ve <em>sağlık profesyonellerine kanıta dayalı öneriler sunar.</em> Hasta bilgilerini klinik bilgiyle entegre ederek karar alma sürecini geliştirir ve hasta sonuçlarını iyileştirir.' },
+        body: 'Klinik karar destek sistemleri (KKDS), yapay zekâ kullanarak hasta verilerini analiz eder ve <em>sağlık profesyonellerine kanıta dayalı öneriler sunar.</em> Hasta bilgilerini klinik bilgiyle entegre eder; yeni verilerden sürekli öğrenerek <em>zamanla daha isabetli hale gelir.</em>' },
       { id: 'k-guven', title: 'Hasta Güvenliğini Artırır', img: 'safety', viz: 'alert',
-        body: 'KKDS, <em>olası ilaç etkileşimlerini belirleyebilir,</em> alternatif tedaviler önerebilir ve <em>anormal laboratuvar sonuçlarını işaretleyerek</em> hata riskini en aza indirir; böylece güvenli hasta bakımını sağlar.' },
-      { id: 'k-ogren', title: 'Sürekli Öğrenme ve Kendini Geliştirme', img: 'learn', sm: true,
-        body: 'Yapay zeka destekli KKDS, yeni klinik verilerden <em>sürekli öğrenir ve adapte olur;</em> zamanla doğrulukları ve klinik uygunlukları artar. Bu da klinik uygulamalardaki etkinliklerini daha da güçlendirir.' }
+        body: 'KKDS, <em>olası ilaç etkileşimlerini belirleyebilir,</em> alternatif tedaviler önerebilir ve <em>anormal laboratuvar sonuçlarını işaretleyerek</em> hata riskini en aza indirir; böylece güvenli hasta bakımını sağlar.' }
     ] },
   { type: 'analytics', id: 'an', sec: 4 },
   { type: 'chat', id: 'chat', sec: 4 },
-  { type: 'hub', id: 'h-akis', sec: 4, title: 'Hemşirelikte Yapay Zeka Destekli İş Akışı Optimizasyonu', sub: 'Evrak, nöbet, stok: üç zaman hırsızı.', bg: 'clinic',
+  { type: 'hub', id: 'h-akis', sec: 4, title: 'Hemşirelikte Yapay Zeka Destekli İş Akışı Optimizasyonu', sub: 'Evrak, nöbet, stok: üç zaman hırsızı.', bg: 'workflow',
     kids: [
       { id: 'k-dok', title: 'Dokümantasyonda Verimliliği Artırır', long: true, big: '01',
-        body: 'Yapay zekâdan yararlanarak hemşirelik iş akışları <em>rutin görevlerin otomasyonu</em> sayesinde daha verimli hale gelebilir. Bu, hemşirelerin <em>evrak işleri üzerinde harcadığı zamanı azaltan</em> dokümantasyon süreçlerinin optimize edilmesini içerir ve onların hasta bakımına daha fazla odaklanmalarını sağlar. Ek olarak yapay zekâ, <em>randevuların planlanmasına yardımcı</em> olarak personel kaynaklarının etkin bir şekilde tahsis edilmesini ve hasta taleplerinin zamanında karşılanmasını sağlar. Stok seviyelerinin düşük olduğu durumlarda personeli uyararak hataları en aza indiren sistemlerle <em>envanter yönetimi</em> de geliştirilir.' },
+        body: 'Yapay zekâ, <em>rutin görevlerin otomasyonu</em> sayesinde hemşirelik iş akışlarını daha verimli kılar. Dokümantasyon süreçlerini optimize ederek <em>evrak işlerine harcanan zamanı azaltır</em>; hemşireler hasta bakımına daha fazla odaklanır. Randevu planlama ve envanter uyarıları, sonraki iki başlıkta ayrıntılanır.' },
       { id: 'k-nobet', title: 'Personel ve Çalışma Planlamasını Optimize Eder', long: true, big: '02', viz: 'shift',
-        body: 'Yapay zeka destekli programlama araçları, <em>hem hemşirelik personelinin müsaitliği hem de hasta bakım ihtiyaçlarıyla uyumlu nöbet çizelgeleri oluşturmaya yardımcı</em> olur. Bu optimizasyon, fazla veya eksik personel sorunlarını azaltarak personel memnuniyetinin artmasına ve daha iyi hasta sonuçlarına yol açar. Tarihsel verileri analiz ederek <em>yoğun zamanları tahmin edebilir</em> ve ekiplerin kritik anlarda yeterli kaynağa sahip olmasını sağlar.' },
+        body: 'Yapay zeka destekli programlama araçları, <em>hem hemşirelik personelinin müsaitliği hem de hasta bakım ihtiyaçlarıyla uyumlu nöbet çizelgeleri oluşturmaya yardımcı</em> olur. Bu optimizasyon, fazla veya eksik personel sorunlarını azaltarak personel memnuniyetinin artmasına ve daha iyi hasta sonuçlarına yol açar. Tarihsel verileri analiz ederek <em>yoğun zamanları tahmin eder</em> ve randevu planlamasını bakım ihtiyacıyla hizalar.' },
       { id: 'k-stok', title: 'Stok Yönetimini İyileştirir', long: true, big: '03', viz: 'stock',
         body: 'Akıllı sistemler aracılığıyla yapay zeka, <em>stok seviyelerini gerçek zamanlı olarak izleyerek envanter yönetimini geliştirir.</em> Bu yetenek, hemşirelik personelinin hasta bakımına odaklanmasını sağlarken gerekli malzemelerin aşırı stoklanmadan mevcut olmasını garanti eder. Kullanım modellerini analiz ederek malzemelerin ne zaman yenilenmesi gerekeceğini tahmin edebilir; <em>böylece bütçe yönetimi ve kaynak tahsisine yardımcı olur.</em>' }
     ] },
-  { type: 'hub', id: 'h-gelis', sec: 4, title: 'Yapay Zekadaki Gelişmeler Hemşirelik Uygulamalarını Dönüştürüyor', sub: 'Kayıttan cihaza, veriden müdahaleye.', bg: 'ehr',
+  { type: 'hub', id: 'h-tekno', sec: 4, title: 'Hemşireliği Dönüştüren Yenilikçi Teknolojiler', sub: 'Kayıttan cihaza: veriyi birleştiren ve bakımı güvenli kılan araçlar.', bg: 'ehr',
     kids: [
       { id: 'k-ehr', title: 'Gelişmiş Elektronik Sağlık Kayıtları', img: 'ehr', sm: true,
-        body: 'Yapay Zekadaki gelişmeler, çeşitli kaynaklardan gelen verileri entegre ederek, erişilebilirliği artırarak ve <em>gerçek zamanlı güncellemeler ve kapsamlı hasta geçmişleri</em> sayesinde daha iyi hasta sonuçlarını kolaylaştırarak Elektronik Sağlık Kayıtlarını (EHR) geliştiriyor.' },
-      { id: 'k-glikoz', title: 'Sürekli Glikoz İzleme', img: 'glucose', viz: 'glucose',
-        body: 'Yapay zeka destekli sürekli glikoz izleme sistemleri, diyabet hastalarının glikoz seviyeleri hakkında <em>gerçek zamanlı veri ve içgörüler</em> sağlayarak kişiselleştirilmiş tedavi planları ve zamanında müdahalelere olanak tanır.' },
-      { id: 'k-cihaz', title: 'Hemşirelikte Akıllı Cihazlar', img: 'smartdev',
-        body: 'Akıllı infüzyon pompaları ve uzaktan izleme sistemleri gibi akıllı cihazlar, ilaç uygulamasını otomatikleştirir, <em>insan hatalarını azaltır</em> ve dozaj doğruluğunu sağlayarak hasta güvenliğini artırır.' }
-    ] },
-  { type: 'hub', id: 'h-tekno', sec: 4, title: 'Hemşireliği Dönüştüren Yenilikçi Teknolojiler', sub: 'İleri teknolojilerin entegrasyonu, hemşirelikte hasta bakımını ve operasyonel verimliliği geliştiriyor.', bg: 'robotward',
-    kids: [
+        body: 'Çeşitli kaynaklardan gelen veriler tek kayıtta birleşir; <em>gerçek zamanlı güncellemeler ve kapsamlı hasta geçmişi</em> daha iyi sonuçları kolaylaştırır.' },
       { id: 'k-infuzyon', title: 'Akıllı İnfüzyon Pompaları', viz: 'drip', sm: true,
-        body: 'Akıllı infüzyon pompaları; sıvıların, ilaçların ve besin maddelerinin hastalara daha yüksek <em>doğruluk ve güvenlikle ulaştırılması</em> için tasarlanmıştır ve ilaç hataları riskini azaltır.' },
+        body: 'Akıllı infüzyon pompaları; sıvı, ilaç ve besin maddelerini <em>yüksek doğruluk ve güvenlikle</em> ulaştırır, dozaj hatalarını ve ilaç hatası riskini azaltır.' },
       { id: 'k-sandalye', title: 'Akıllı Tekerlekli Sandalyeler', viz: 'wheel', sm: true,
         body: 'Akıllı tekerlekli sandalyeler, hastaların hareket kabiliyetine yardımcı olan ve bağımsızlık sağlayan gelişmiş navigasyon sistemleriyle donatılmıştır ve aynı zamanda <em>gerçek zamanlı sağlık izleme</em> imkânı sunar.' },
       { id: 'k-yatak', title: 'Akıllı Yataklar', viz: 'bed', sm: true,
@@ -120,15 +107,14 @@ const DECK = [
   { type: 'robots', id: 'rob', sec: 4 },
   { type: 'hub', id: 'h-perf', sec: 4, title: 'Performans İzlemi', sub: 'Ölç, iyileştir, kıyasla.', bg: 'handwash',
     kids: [
-      { id: 'k-kpi', title: 'Temel Performans Göstergelerinin (KPI) Değerlendirilmesi', img: 'kpi', sm: true,
-        body: 'Yapay zeka destekli performans izleme, hemşirelik uygulamalarında verimliliği ölçmek için <em>temel performans göstergelerini</em> değerlendirerek standartların karşılanmasını ve sürdürülmesini sağlar.' },
+      { id: 'k-kpi', title: 'KPI ve Standartlarla Kıyaslama', img: 'kpi', sm: true,
+        body: 'Yapay zeka destekli izleme, <em>temel performans göstergelerini</em> değerlendirir ve kuruluşların performansını sektör standartlarıyla karşılaştırarak açıkları ve en iyi uygulamaları görünür kılar.' },
       { id: 'k-kalite', title: 'Sürekli Kalite İyileştirmesi', img: 'quality',
-        body: 'İyileştirme gereken alanları belirleyerek yapay zeka, <em>sürekli kalite iyileştirme</em> girişimlerini kolaylaştırır ve nihayetinde daha iyi hasta sonuçlarına ve optimize edilmiş hemşirelik uygulamalarına yol açar.' },
-      { id: 'k-bench', title: 'Standartlarla Kıyaslama (Benchmarking)', img: 'benchmark', sm: true,
-        body: 'Yapay zeka araçları, sağlık kuruluşlarının performanslarını sektör standartlarıyla karşılaştırmalarını sağlayan <em>kıyaslama yetenekleri</em> sunar; bu da açıkların belirlenmesine ve en iyi uygulamalara ulaşılmasına yardımcı olur.' }
+        body: 'İyileştirme gereken alanları belirleyerek <em>sürekli kalite iyileştirme</em> döngüsünü kolaylaştırır; sonuçta daha iyi hasta çıktıları ve optimize edilmiş hemşirelik uygulamaları elde edilir.' }
     ] },
 
   { type: 'chap', id: 'c5', sec: 5, title: 'Gücü Sorumlulukla Kullanmak', sub: 'Teknoloji öneri sunar; sorumluluk hemşirede kalır.', small: false },
   { type: 'ethics', id: 'eth', sec: 5 },
+  { type: 'steps', id: 'steps', sec: 5 },
   { type: 'end', id: 'end', sec: 6 }
 ];

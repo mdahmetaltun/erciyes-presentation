@@ -4,7 +4,8 @@ gsap.registerPlugin(SplitText, MorphSVGPlugin, CustomEase);
 const W = 1600, H = 900;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const IMG = n => `assets/img/${n}.jpg`;
+const PHOTOS = new Set(['mccarthy1', 'mccarthy2', 'speaker']);   // tarihsel / gerçek fotoğraflar; diğer görseller vektör (SVG)
+const IMG = n => `assets/img/${n}.${PHOTOS.has(n) ? 'jpg' : 'svg'}`;
 const GL = 'ABCDEFGHIJKLMNOPRSTUVYZ#%&/<>';
 const rnd = gsap.utils.random;
 
@@ -767,7 +768,7 @@ T.robots = () => `
 
 T.ethics = () => `
   <div class="tag rv" style="position:absolute;left:96px;top:44px">BU SUNUMA EKLENDİ</div>
-  <h2 class="t" style="top:90px">İnsan + Yapay Zeka: Güven Dört Ayak Üzerinde Durur</h2>
+  <h2 class="t" style="top:90px;font-size:56px">İnsan + Yapay Zeka: Güven Dört Ayak Üzerinde Durur</h2>
   <p class="lead rv">Yukarıdaki her uygulama değerli; ama yalnızca doğru kullanıldığında. Hemşirelik mesleği bu dönüşümün <em>sorumlu tarafı</em>.</p>
   <div class="pillars">
     ${[
@@ -776,6 +777,20 @@ T.ethics = () => `
       ['Şeffaflık', 'Öneri neden verildi? Hemşire, sistemin gerekçesini anlayabilmeli ve sorgulayabilmeli.', 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'],
       ['İnsan Gözetimi', 'Son karar klinisyendedir. Yapay zeka öneri sunar; sorumluluk devredilmez.', 'M12 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM4 21v-2a6 6 0 0 1 16 0v2M17 12l4 4']
     ].map(([t, p, d], i) => `<div class="pil rv" data-n="0${i + 1}"><svg viewBox="0 0 24 24" style="stroke-width:1.6"><path d="${d}"/></svg><h3>${t}</h3><p>${p}</p></div>`).join('')}
+  </div>`;
+
+T.steps = () => `
+  <svg class="mshape" viewBox="0 0 100 100"><path d="${ICONS.circle}"/></svg>
+  <div class="tag rv" style="position:absolute;left:96px;top:44px">YARIN KLİNİKTE</div>
+  <h2 class="t" style="top:90px;font-size:62px">Sunumdan Sahaya: <span class="kin">Dört Adım</span></h2>
+  <p class="lead rv">Bilgi, ancak uygulamaya dönüştüğünde değer üretir. Yapay zekayı klinik beceri eğitiminize ve bakım pratiğinize <em>küçük, ölçülebilir adımlarla</em> taşıyın.</p>
+  <div class="pillars">
+    ${[
+    ['Öğren', 'Temel kavramları ve biriminizde kullanılan YZ araçlarını tanıyın; dijital okuryazarlık yeni bir klinik beceridir.', 'M12 3L2 8l10 5 10-5zM6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5'],
+    ['Sorgula', 'Her çıktıyı klinik bağlam ve kanıtla doğrulayın; öneriyi kabul etmeden önce gerekçesini isteyin.', 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-5-5'],
+    ['Dene', 'Dokümantasyon ya da nöbet planı gibi düşük riskli bir alanda küçük bir pilot kurun ve sonucu ölçün.', 'M9 3h6M10 3v6L4 20h16l-6-11V3M7 15h10'],
+    ['Paylaş', 'Deneyimlerinizi ekip ve öğrencilerle paylaşın; etik ilkeleri ve sorumlulukları birlikte belirleyin.', 'M8 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM16 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20v-1a5 5 0 0 1 10 0v1M12 20v-1a5 5 0 0 1 10 0v1']
+  ].map(([t, p, d], i) => `<div class="pil rv" data-n="0${i + 1}"><svg viewBox="0 0 24 24" style="stroke-width:1.6"><path d="${d}"/></svg><h3>${t}</h3><p>${p}</p></div>`).join('')}
   </div>`;
 
 T.end = () => `
@@ -794,7 +809,7 @@ function mkFrame(id, cls, html, x, y, r, s, extra = {}) {
   const f = Object.assign({ id, el, x, y, r, s, type: 'card' }, extra);
   F[id] = f; return f;
 }
-const CLS = { hero: 'f-hero', poster: 'f-poster', chap: 'f-chap', hub: 'f-hub', mccarthy: 'f-mc', map: 'f-map', venn: 'f-venn', role: 'f-flat', surgery: 'f-cmp', analytics: 'f-an', chat: 'f-chat', robots: 'f-rob', ethics: 'f-eth', end: 'f-end' };
+const CLS = { hero: 'f-hero', poster: 'f-poster', chap: 'f-chap', hub: 'f-hub', mccarthy: 'f-mc', map: 'f-map', venn: 'f-venn', role: 'f-flat', surgery: 'f-cmp', analytics: 'f-an', chat: 'f-chat', robots: 'f-rob', ethics: 'f-eth', steps: 'f-eth f-steps', end: 'f-end' };
 
 DECK.forEach((d, i) => {
   const f = mkFrame(d.id, CLS[d.type] + (d.type === 'hub' ? ' n' + d.kids.length : ''), T[d.type](d, i), d.x, d.y, d.r, d.s, { type: d.type, sec: d.sec, deck: d, top: i });
@@ -802,7 +817,8 @@ DECK.forEach((d, i) => {
   if (d.type === 'hub') {
     const n = d.kids.length, rad = d.r * Math.PI / 180, cr = Math.cos(rad), sr = Math.sin(rad);
     let pos, sc;
-    if (n === 3) { sc = .30; pos = [[430, -285], [430, 0], [430, 285]]; }
+    if (n === 2) { sc = .33; pos = [[430, -170], [430, 170]]; }
+    else if (n === 3) { sc = .30; pos = [[430, -285], [430, 0], [430, 285]]; }
     else if (n === 4) { sc = .27; pos = [[160, -140], [610, -140], [160, 140], [610, 140]]; }
     else { sc = .22; pos = [[190, -245], [610, -245], [190, 0], [610, 0], [400, 245]]; }
     d.kids.forEach((k, j) => {
@@ -1196,6 +1212,15 @@ A.ethics = (f, tl) => {
   kWords(tl, $('.lead', e), 0.55);
   tl.fromTo($$('.pil', e), { y: 90, opacity: 0, rotationX: -25, transformPerspective: 900 }, { y: 0, opacity: 1, rotationX: 0, duration: 0.85, stagger: 0.14, ease: 'expo.out' }, 0.8);
   tl.fromTo($$('.pil svg path', e), { strokeDasharray: 120, strokeDashoffset: 120 }, { strokeDashoffset: 0, duration: 1.2, stagger: 0.14 }, 1.0);
+};
+
+A.steps = (f, tl) => {
+  A.ethics(f, tl);
+  const e = f.el, ms = $('.mshape path', e), order = ['hex', 'cross', 'heart', 'spark', 'shield', 'circle'];
+  tl.fromTo($('.mshape', e), { scale: .4, rotation: -60, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 1.2, ease: 'expo.out' }, .2);
+  /* Her adım belirirken şekil bir sonraki ikona dönüşür (MorphSVG) */
+  order.forEach((n, i) => tl.to(ms, { morphSVG: { shape: ICONS[n], type: 'rotational' }, duration: .9, ease: 'power3.inOut' }, .9 + i * .45));
+  loop(f, () => gsap.to($('.mshape', e), { rotation: 8, duration: 4, yoyo: true, repeat: -1, ease: 'sine.inOut' }));
 };
 
 A.end = (f, tl, instant) => {
